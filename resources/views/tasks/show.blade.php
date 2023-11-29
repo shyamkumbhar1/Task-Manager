@@ -31,5 +31,11 @@
                 {{ $task->due_date }}
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Status:</strong>
+                {{ ($task->due_date == '1')?'Completed ': 'Incompleted'   }}
+            </div>
+        </div>
     </div>
 @endsection

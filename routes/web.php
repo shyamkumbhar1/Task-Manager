@@ -14,3 +14,5 @@ Route::get('/', function () {
 
 
 Route::resource('tasks', TaskController::class);
+Route::get('changeStatus', [TaskController::class,'changeStatus'])->name('changeStatus');
+

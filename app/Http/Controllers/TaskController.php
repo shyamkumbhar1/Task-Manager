@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class TaskController extends Controller
 {
@@ -72,5 +73,14 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index')
                         ->with('success','Task deleted successfully');
+    }
+    public function changeStatus(Request $request)
+    {
+        // dd($request->all());
+        $user = Task::find($request->id);
+        $user->status = $request->status;
+        $user->save();
+
+        return response()->json(['success'=>'Status change successfully.']);
     }
 }

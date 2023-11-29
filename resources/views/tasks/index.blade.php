@@ -24,6 +24,7 @@
             <th>Title</th>
             <th>Description</th>
             <th>Due Date</th>
+            <th>Status</th>
             <th width="280px">Action</th>
         </tr>
         @foreach ($tasks as $task)
@@ -32,6 +33,10 @@
             <td>{{ $task->title }}</td>
             <td>{{ $task->description }}</td>
             <td>{{ $task->due_date }}</td>
+
+            <td>
+                <input data-id="{{$task->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Completed" data-off="Incompleted" {{ $task->status ? 'checked' : '' }}>
+             </td>
             <td>
                 <form action="{{ route('tasks.destroy',$task->id) }}" method="POST">
 
@@ -50,5 +55,25 @@
     </table>
 
     {!! $tasks->links() !!}
+
+@endsection
+@section('script')
+$(function() {
+    $('.toggle-class').change(function() {
+        var status = $(this).prop('checked') == true ? 1 : 0;
+        var id = $(this).data('id');
+        console.log(id);
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '/changeStatus',
+            data: {'status': status, 'id': id},
+            success: function(data){
+              console.log(data.success)
+            }
+        });
+    })
+  })
 
 @endsection
