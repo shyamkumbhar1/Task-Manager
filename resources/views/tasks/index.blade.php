@@ -1,4 +1,4 @@
-@extends('products.layout')
+@extends('tasks.layout')
 
 @section('content')
     <div class="row">
@@ -7,7 +7,7 @@
                 <h2>Task Manager</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Product</a>
+                <a class="btn btn-success" href="{{ route('tasks.create') }}"> Create New Task</a>
             </div>
         </div>
     </div>
@@ -25,17 +25,17 @@
             <th>Details</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($products as $product)
+        @foreach ($tasks as $task)
         <tr>
             <td>{{ ++$i }}</td>
-            <td>{{ $product->name }}</td>
-            <td>{{ $product->detail }}</td>
+            <td>{{ $task->name }}</td>
+            <td>{{ $task->detail }}</td>
             <td>
-                <form action="{{ route('products.destroy',$product->id) }}" method="POST">
+                <form action="{{ route('tasks.destroy',$task->id) }}" method="POST">
 
-                    <a class="btn btn-info" href="{{ route('products.show',$product->id) }}">Show</a>
+                    <a class="btn btn-info" href="{{ route('tasks.show',$task->id) }}">Show</a>
 
-                    <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('tasks.edit',$task->id) }}">Edit</a>
 
                     @csrf
                     @method('DELETE')
@@ -47,6 +47,6 @@
         @endforeach
     </table>
 
-    {!! $products->links() !!}
+    {!! $tasks->links() !!}
 
 @endsection

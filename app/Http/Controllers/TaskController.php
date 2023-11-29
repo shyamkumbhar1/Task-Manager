@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Task;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
-class ProductController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        $products = Product::latest()->paginate(5);
+        $tasks = Task::latest()->paginate(5);
 
-        return view('products.index',compact('products'))
+        return view('tasks.index',compact('tasks'))
                     ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -26,7 +26,7 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        return view('products.create');
+        return view('tasks.create');
     }
 
     /**
@@ -39,52 +39,52 @@ class ProductController extends Controller
             'detail' => 'required',
         ]);
 
-        Product::create($request->all());
+        Task::create($request->all());
 
-        return redirect()->route('products.index')
-                        ->with('success','Product created successfully.');
+        return redirect()->route('tasks.index')
+                        ->with('success','Task created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product): View
+    public function show(Task $task): View
     {
-        return view('products.show',compact('product'));
+        return view('tasks.show',compact('task'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product): View
+    public function edit(Task $task): View
     {
-        return view('products.edit',compact('product'));
+        return view('tasks.edit',compact('task'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product): RedirectResponse
+    public function update(Request $request, Task $task): RedirectResponse
     {
         $request->validate([
             'name' => 'required',
             'detail' => 'required',
         ]);
 
-        $product->update($request->all());
+        $task->update($request->all());
 
-        return redirect()->route('products.index')
-                        ->with('success','Product updated successfully');
+        return redirect()->route('tasks.index')
+                        ->with('success','Task updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product): RedirectResponse
+    public function destroy(Task $task): RedirectResponse
     {
-        $product->delete();
+        $task->delete();
 
-        return redirect()->route('products.index')
-                        ->with('success','Product deleted successfully');
+        return redirect()->route('tasks.index')
+                        ->with('success','Task deleted successfully');
     }
 }
