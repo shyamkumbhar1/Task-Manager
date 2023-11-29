@@ -21,15 +21,17 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Name</th>
-            <th>Details</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Due Date</th>
             <th width="280px">Action</th>
         </tr>
         @foreach ($tasks as $task)
         <tr>
             <td>{{ ++$i }}</td>
-            <td>{{ $task->name }}</td>
-            <td>{{ $task->detail }}</td>
+            <td>{{ $task->title }}</td>
+            <td>{{ $task->description }}</td>
+            <td>{{ $task->due_date }}</td>
             <td>
                 <form action="{{ route('tasks.destroy',$task->id) }}" method="POST">
 
