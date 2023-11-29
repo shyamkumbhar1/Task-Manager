@@ -11,7 +11,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/db:seed', function () {
+    Artisan::call('db:seed');
 
+
+    return "Db Seed successfully";
+ });
 
 Route::resource('tasks', TaskController::class);
 Route::get('changeStatus', [TaskController::class,'changeStatus'])->name('changeStatus');
